@@ -1,4 +1,13 @@
 defmodule FibSolver do
+  @moduledoc """
+  Define a module that receives messages to calculate fibonacci and sends the response
+  """
+
+  @doc """
+  Takes a scheduler pid
+  and sends it a ready message and it's pid
+  and sets up the receive loop to receive :fib and :shutdown messages
+  """
   def fib(scheduler) do
     # Send a ready message to the scheduler pid, and include my pid
     send scheduler, { :ready, self }
@@ -23,6 +32,10 @@ end
 
 defmodule Scheduler do
   @moduledoc """
+  Define a module to schedule processes
+  """
+  
+  @doc """
   Define a run process that takes
   * num_processes - The number of processes to create
   * module - The module of the function to run
@@ -39,7 +52,7 @@ defmodule Scheduler do
     |> schedule_processes(to_calculate, [])
   end
 
-  @moduledoc """
+  @doc """
   Define a function that takes
   * processes - A list of process ids
   * queue - The queue of numbers for which we are calculating fibonacci
